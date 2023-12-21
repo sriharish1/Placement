@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int main() {
+    // Input values
+    int totalHoursNeeded, numberOfDays, numberOfWorkers;
+    printf("Enter the total number of hours needed: ");
+    scanf("%d", &totalHoursNeeded);
+
+    printf("Enter the number of days: ");
+    scanf("%d", &numberOfDays);
+
+    printf("Enter the number of workers: ");
+    scanf("%d", &numberOfWorkers);
+
+    // Calculate working hours per day after training
+    int workingHoursPerDay = (8 + 2) * numberOfWorkers;
+
+    // Calculate total working hours considering 10% training days
+    int totalWorkingDays = numberOfDays - (numberOfDays * 10 / 100);
+    int totalWorkingHours = totalWorkingDays * workingHoursPerDay;
+
+    // Check if the time is enough
+    if (totalWorkingHours >= totalHoursNeeded) {
+        int hoursLeft = totalWorkingHours - totalHoursNeeded;
+        printf("Yes! %d hours left.\n", hoursLeft);
+    } else {
+        int additionalHoursNeeded = totalHoursNeeded - totalWorkingHours;
+        printf("Not enough time! %d hours needed.\n", additionalHoursNeeded);
+    }
+
+    return 0;
+}
+
+
+Output:
+Enter the total number of hours needed: 3
+Enter the number of days: 21
+Enter the number of workers: 45
+Yes! 8547 hours left.
