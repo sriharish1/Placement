@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int main() {
+    // Assume x, y, z are distinct and have different values
+    int x, y, z;
+
+    // Input values for x, y, z
+    printf("Enter the value of x: ");
+    scanf("%d", &x);
+
+    printf("Enter the value of y: ");
+    scanf("%d", &y);
+
+    printf("Enter the value of z: ");
+    scanf("%d", &z);
+
+    // Determine the middle value
+    if ((x > y && x < z) || (x < y && x > z))
+        printf("1 is the middle value.\n");
+    else if ((y > x && y < z) || (y < x && y > z))
+        printf("2 is the middle value.\n");
+    else
+        printf("3 is the middle value.\n");
+
+    return 0;
+}
