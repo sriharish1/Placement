@@ -24,3 +24,11 @@ int main() {
 
     return 0;
 }
+
+
+Output:
+Enter the value of x: 1
+Enter the value of y: 4
+Enter the value of z: 7
+2 is the middle value.
+
