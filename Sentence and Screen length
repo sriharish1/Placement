@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <string.h>
+
+void justifySentence(char sentence[], int screenLength) {
+    int len = strlen(sentence);
+    
+    // Count the number of spaces in the sentence
+    int spaceCount = 0;
+    for (int i = 0; i < len; i++) {
+        if (sentence[i] == ' ') {
+            spaceCount++;
+        }
+    }
+
+    // Calculate the number of stars to be inserted
+    int totalStars = screenLength - len + spaceCount;
+
+    // Calculate the number of spaces between each word
+    int spacesBetweenWords = spaceCount > 0 ? totalStars / spaceCount : 0;
+    
+    // Calculate the remaining stars after distributing them equally
+    int remainingStars = spaceCount > 0 ? totalStars % spaceCount : totalStars;
+
+    // Justify the sentence by replacing spaces with stars
+    for (int i = 0; i < len; i++) {
+        if (sentence[i] == ' ') {
+            int stars = spacesBetweenWords + (remainingStars-- > 0 ? 1 : 0);
+            for (int j = 0; j < stars; j++) {
+                putchar('*');
+            }
+        } else {
+            putchar(sentence[i]);
+        }
+    }
+
+    printf("\n");
+}
+
+int main() {
+    // Sample Input 1
+    char sentence1[] = "Welcome to Zoho Corporation";
+    int screenLength1 = 34;
+    printf("Sample Output 1: ");
+    justifySentence(sentence1, screenLength1);
+
+    // Sample Input 2
+    char sentence2[] = "Welcome to Zoho Corporation";
+    int screenLength2 = 36;
+    printf("Sample Output 2: ");
+    justifySentence(sentence2, screenLength2);
+
+    return 0;
+}
