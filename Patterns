@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    int rows = 5; // You can adjust the number of rows as needed
+    int currentNumber = 1;
+
+    // Outer loop for rows
+    for (int i = 1; i <= rows; ++i) {
+        // Inner loop for printing spaces
+        for (int j = i; j < rows; ++j) {
+            printf("   ");
+        }
+
+        // Inner loop for printing numbers
+        for (int k = 1; k <= i; ++k) {
+            printf("%3d", currentNumber);
+            currentNumber += 1; // Increment by 2 for the next odd number
+        }
+
+        // Move to the next line after each row
+        printf("\n");
+    }
+
+    return 0;
+}
