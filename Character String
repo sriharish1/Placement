@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+void generate_output(const char *input_str, char *output_str) {
+    char current_char = '\0';
+    int count = 0;
+    int output_index = 0;
+
+    for (int i = 0; input_str[i] != '\0'; ++i) {
+        if (isalpha(input_str[i])) {
+            if (current_char != '\0') {
+                for (int j = 0; j < count; ++j) {
+                    output_str[output_index++] = current_char;
+                }
+                current_char = '\0';
+                count = 0;
+            }
+            current_char = input_str[i];
+        } else if (isdigit(input_str[i])) {
+            count = count * 10 + (input_str[i] - '0');
+        }
+    }
+
+    if (current_char != '\0') {
+        for (int j = 0; j < count; ++j) {
+            output_str[output_index++] = current_char;
+        }
+    }
+
+    output_str[output_index] = '\0';
+}
+
+int main() {
+    char input_str1[] = "a1b10";
+    char output_str1[50]; // Adjust the size based on your input
+    generate_output(input_str1, output_str1);
+    printf("Input: %s\nOutput: %s\n", input_str1, output_str1);
+
+    char input_str2[] = "b3c6d15";
+    char output_str2[50]; // Adjust the size based on your input
+    generate_output(input_str2, output_str2);
+    printf("\nInput: %s\nOutput: %s\n", input_str2, output_str2);
+
+    return 0;
+}
+
+
+Output:
+Input: a1b10
+Output: abbbbbbbbbb
+
+Input: b3c6d15
+Output: bbbccccccddddddddddddddd
