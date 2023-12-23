@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <string.h>
+
+// Function to check if two strings are anagrams
+int is_anagram(const char *s, const char *t) {
+    // Check if the lengths are different, if so, they can't be anagrams
+    if (strlen(s) != strlen(t)) {
+        return 0; // Not an anagram
+    }
+
+    // Create arrays to store the frequency of characters in both strings
+    int s_freq[256] = {0};
+    int t_freq[256] = {0};
+
+    // Update the frequency arrays for string s
+    for (int i = 0; s[i] != '\0'; i++) {
+        s_freq[(int)s[i]]++;
+    }
+
+    // Update the frequency arrays for string t
+    for (int i = 0; t[i] != '\0'; i++) {
+        t_freq[(int)t[i]]++;
+    }
+
+    // Compare the frequency arrays
+    for (int i = 0; i < 256; i++) {
+        if (s_freq[i] != t_freq[i]) {
+            return 0; // Not an anagram
+        }
+    }
+
+    return 1; // Anagram
+}
+
+int main() {
+    // Example usage:
+    const char *s1 = "anagram";
+    const char *t1 = "nagaram";
+    if (is_anagram(s1, t1)) {
+        printf("True\n");
+    } else {
+        printf("False\n");
+    }
+
+    const char *s2 = "rat";
+    const char *t2 = "car";
+    if (is_anagram(s2, t2)) {
+        printf("True\n");
+    } else {
+        printf("False\n");
+    }
+
+    return 0;
+}
