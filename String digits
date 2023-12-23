@@ -1,0 +1,124 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Function to map a digit to its corresponding letters
+char* get_letters(char digit) {
+    switch (digit) {
+        case '2':
+            return "abc";
+        case '3':
+            return "def";
+        case '4':
+            return "ghi";
+        case '5':
+            return "jkl";
+        case '6':
+            return "mno";
+        case '7':
+            return "pqrs";
+        case '8':
+            return "tuv";
+        case '9':
+            return "wxyz";
+        default:
+            return "";
+    }
+}
+
+// Helper function for backtracking
+void backtrack(char* digits, int index, char* current, char** result, int* result_size) {
+    // If the current combination is complete, add it to the result
+    if (index == strlen(digits)) {
+        result[*result_size] = strdup(current);
+        (*result_size)++;
+        return;
+    }
+
+    // Get the letters corresponding to the current digit
+    char* letters = get_letters(digits[index]);
+
+    // Iterate through the letters and recurse
+    for (int i = 0; i < strlen(letters); i++) {
+        current[index] = letters[i];
+        backtrack(digits, index + 1, current, result, result_size);
+    }
+}
+
+// Function to generate all possible letter combinations
+char** letter_combinations(char* digits, int* return_size) {
+    // Check for empty input
+    if (digits == NULL || strlen(digits) == 0) {
+        *return_size = 0;
+        return NULL;
+    }
+
+    // Calculate the maximum possible number of combinations
+    int max_combinations = 1;
+    for (int i = 0; i < strlen(digits); i++) {
+        char* letters = get_letters(digits[i]);
+        max_combinations *= strlen(letters);
+    }
+
+    // Allocate memory for the result
+    char** result = (char**)malloc(max_combinations * sizeof(char*));
+    *return_size = 0;
+
+    // Allocate memory for the current combination
+    char* current = (char*)malloc((strlen(digits) + 1) * sizeof(char));
+    current[strlen(digits)] = '\0';
+
+    // Generate combinations using backtracking
+    backtrack(digits, 0, current, result, return_size);
+
+    // Free memory for the current combination
+    free(current);
+
+    return result;
+}
+
+int main() {
+    // Example usage:
+    char digits1[] = "23";
+    int return_size1;
+    char** result1 = letter_combinations(digits1, &return_size1);
+    printf("Output 1: [");
+    for (int i = 0; i < return_size1; i++) {
+        printf("\"%s\"", result1[i]);
+        if (i < return_size1 - 1) {
+            printf(", ");
+        }
+        free(result1[i]); // Free memory for each string in the result
+    }
+    printf("]\n");
+    free(result1); // Free memory for the result array
+
+    char digits2[] = "";
+    int return_size2;
+    char** result2 = letter_combinations(digits2, &return_size2);
+    printf("Output 2: []\n");
+    free(result2);
+
+    char digits3[] = "2";
+    int return_size3;
+    char** result3 = letter_combinations(digits3, &return_size3);
+    printf("Output 3: [");
+    for (int i = 0; i < return_size3; i++) {
+        printf("\"%s\"", result3[i]);
+        if (i < return_size3 - 1) {
+            printf(", ");
+        }
+        free(result3[i]);
+    }
+    printf("]\n");
+    free(result3);
+
+    return 0;
+}
+
+
+
+Output:
+Output 1: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"]
+Output 2: []
+Output 3: ["a", "b", "c"]
