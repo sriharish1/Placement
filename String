@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+
+// Function to find the longest common prefix
+char* longest_common_prefix(char** strs, int size) {
+    // Check for empty input
+    if (size == 0) {
+        char* result = malloc(1);
+        result[0] = '\0';
+        return result;
+    }
+
+    // Set the first string as the initial common prefix
+    char* prefix = strdup(strs[0]);
+
+    // Iterate through the remaining strings
+    for (int i = 1; i < size; i++) {
+        int j = 0;
+
+        // Compare characters until the end of the prefix or the current string
+        while (prefix[j] != '\0' && strs[i][j] != '\0' && prefix[j] == strs[i][j]) {
+            j++;
+        }
+
+        // Update the prefix length
+        prefix[j] = '\0';
+    }
+
+    return prefix;
+}
+
+int main() {
+    // Example usage:
+    char* strs1[] = {"flower", "flow", "flight"};
+    char* result1 = longest_common_prefix(strs1, 3);
+    printf("Output 1: %s\n", result1);
+    free(result1);
+
+    char* strs2[] = {"dog", "racecar", "car"};
+    char* result2 = longest_common_prefix(strs2, 3);
+    printf("Output 2: %s\n", result2);
+    free(result2);
+
+    return 0;
+}
