@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int findSecondLargest(int arr[], int n) {
+    int largest = arr[0];
+    int second_largest = -1;
+
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > largest) {
+            second_largest = largest;
+            largest = arr[i];
+        } else if (arr[i] > second_largest && arr[i] != largest) {
+            second_largest = arr[i];
+        }
+    }
+
+    return second_largest;
+}
+
+int main() {
+    // Example 1
+    int arr1[] = {12, 35, 1, 10, 34, 1};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+
+    printf("Example 1:\n");
+    printf("Input: ");
+    for (int i = 0; i < n1; i++) {
+        printf("%d ", arr1[i]);
+    }
+    printf("\nOutput: %d\n", findSecondLargest(arr1, n1));
+
+    // Example 2
+    int arr2[] = {10, 5, 10};
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+
+    printf("\nExample 2:\n");
+    printf("Input: ");
+    for (int i = 0; i < n2; i++) {
+        printf("%d ", arr2[i]);
+    }
+    printf("\nOutput: %d\n", findSecondLargest(arr2, n2));
+
+    return 0;
+}
