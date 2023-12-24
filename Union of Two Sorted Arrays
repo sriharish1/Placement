@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+void printUnion(int arr1[], int m, int arr2[], int n) {
+    int i = 0, j = 0;
+
+    while (i < m && j < n) {
+        if (arr1[i] < arr2[j]) {
+            printf("%d ", arr1[i++]);
+        } else if (arr2[j] < arr1[i]) {
+            printf("%d ", arr2[j++]);
+        } else {
+            // If arr1[i] is equal to arr2[j], print either of them and move both pointers
+            printf("%d ", arr1[i++]);
+            j++;
+        }
+    }
+
+    // Print the remaining elements of the arrays, if any
+    while (i < m) {
+        printf("%d ", arr1[i++]);
+    }
+
+    while (j < n) {
+        printf("%d ", arr2[j++]);
+    }
+}
+
+int main() {
+    // Example 1
+    int arr1[] = {1, 2, 3, 4, 5};
+    int n = sizeof(arr1) / sizeof(arr1[0]);
+
+    int arr2[] = {1, 2, 3};
+    int m = sizeof(arr2) / sizeof(arr2[0]);
+
+    printf("Example 1:\nOutput: ");
+    printUnion(arr1, n, arr2, m);
+    printf("\n\n");
+
+    // Example 2
+    int arr3[] = {2, 2, 3, 4, 5};
+    n = sizeof(arr3) / sizeof(arr3[0]);
+
+    int arr4[] = {1, 1, 2, 3, 4};
+    m = sizeof(arr4) / sizeof(arr4[0]);
+
+    printf("Example 2:\nOutput: ");
+    printUnion(arr3, n, arr4, m);
+
+    return 0;
+}
