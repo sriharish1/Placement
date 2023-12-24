@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+int hasPairWithSum(int arr[], int n, int X) {
+    // Use a hash table to keep track of visited elements
+    int hash[10000] = {0};
+
+    for (int i = 0; i < n; i++) {
+        int complement = X - arr[i];
+
+        // If the complement is already in the hash table, a pair with the sum X exists
+        if (hash[complement] == 1) {
+            return 1; // Found a pair
+        }
+
+        // Mark the current element as visited
+        hash[arr[i]] = 1;
+    }
+
+    return 0; // No pair found
+}
+
+int main() {
+    // Example 1
+    int arr1[] = {1, 4, 45, 6, 10, 8};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+    int X1 = 16;
+
+    printf("Example 1:\n");
+    printf("Input: ");
+    for (int i = 0; i < n1; i++) {
+        printf("%d ", arr1[i]);
+    }
+    printf("\nX = %d\n", X1);
+    printf("Output: %s\n", hasPairWithSum(arr1, n1, X1) ? "Yes" : "No");
+
+    // Example 2
+    int arr2[] = {1, 2, 4, 3, 6};
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+    int X2 = 10;
+
+    printf("\nExample 2:\n");
+    printf("Input: ");
+    for (int i = 0; i < n2; i++) {
+        printf("%d ", arr2[i]);
+    }
+    printf("\nX = %d\n", X2);
+    printf("Output: %s\n", hasPairWithSum(arr2, n2, X2) ? "Yes" : "No");
+
+    return 0;
+}
+
+
+
+Output:
+Example 1:
+Input: 1 4 45 6 10 8 
+X = 16
+Output: Yes
+Example 2:
+Input: 1 2 4 3 6 
+X = 10
+Output: Yes
