@@ -1,0 +1,62 @@
+#include <stdio.h>
+
+void findDuplicates(int arr[], int N) {
+    int i, j;
+    int found = 0;
+
+    // Traverse the array
+    for (i = 0; i < N; i++) {
+        // Check if the current element is already marked as visited
+        if (arr[abs(arr[i])] >= 0) {
+            // Mark the element as visited
+            arr[abs(arr[i])] = -arr[abs(arr[i])];
+        } else {
+            // If the element is already marked as visited, it is a duplicate
+            printf("%d ", abs(arr[i]));
+            found = 1;
+        }
+    }
+
+    // If no duplicates are found, print -1
+    if (!found) {
+        printf("-1");
+    }
+}
+
+int main() {
+    int N;
+
+    // Example 1
+    int arr1[] = {0, 3, 1, 2};
+    N = sizeof(arr1) / sizeof(arr1[0]);
+    printf("Example 1:\nInput: ");
+    for (int i = 0; i < N; i++) {
+        printf("%d ", arr1[i]);
+    }
+    printf("\nOutput: ");
+    findDuplicates(arr1, N);
+    printf("\n\n");
+
+    // Example 2
+    int arr2[] = {2, 3, 1, 2, 3};
+    N = sizeof(arr2) / sizeof(arr2[0]);
+    printf("Example 2:\nInput: ");
+    for (int i = 0; i < N; i++) {
+        printf("%d ", arr2[i]);
+    }
+    printf("\nOutput: ");
+    findDuplicates(arr2, N);
+
+    return 0;
+}
+
+
+
+Output:
+Example 1:
+Input: 0 3 1 2 
+Output: -1
+
+Example 2:
+Input: 2 3 1 2 3 
+Output: 2 3 
