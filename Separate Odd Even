@@ -1,0 +1,35 @@
+package com.fst.demo;
+
+import java.util.Arrays;
+
+public class SeparateOddEven {
+	public static void main(String[] args) {
+        // Input array
+        int[] inputArray = {10, 3, 5, 12, 17, 22};
+
+        // Separate odd and even elements
+        int[] evenArray = getEvenElements(inputArray);
+        int[] oddArray = getOddElements(inputArray);
+
+        // Print the output arrays
+        System.out.println("Even Elements: " + Arrays.toString(evenArray));
+        System.out.println("Odd Elements: " + Arrays.toString(oddArray));
+    }
+
+    // Function to get even elements from the array
+    public static int[] getEvenElements(int[] array) {
+        return Arrays.stream(array).filter(num -> num % 2 == 0).toArray();
+    }
+
+    // Function to get odd elements from the array
+    public static int[] getOddElements(int[] array) {
+        return Arrays.stream(array).filter(num -> num % 2 != 0).toArray();
+    }
+
+}
+
+
+
+Output:
+Even Elements: [10, 12, 22]
+Odd Elements: [3, 5, 17]
