@@ -1,0 +1,46 @@
+package com.fst.demo;
+
+public class StringCompression {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 String input1 = "AAABBC";
+	        String input2 = "AAABBCCCDE";
+
+	        System.out.println(compressString(input1)); // Output: A3B2C
+	        System.out.println(compressString(input2)); // Output: A3B2C3DE
+	    }
+
+	    public static String compressString(String input) {
+	        StringBuilder compressed = new StringBuilder();
+
+	        int count = 1;
+	        for (int i = 1; i < input.length(); i++) {
+	            if (input.charAt(i) == input.charAt(i - 1)) {
+	                count++;
+	            } else {
+	                compressed.append(input.charAt(i - 1));
+	                if (count > 1) {
+	                    compressed.append(count);
+	                }
+	                count = 1;
+	            }
+	        }
+
+	        // Append the last character and its count
+	        compressed.append(input.charAt(input.length() - 1));
+	        if (count > 1) {
+	            compressed.append(count);
+	        }
+
+	        return compressed.toString();
+
+	}
+
+}
+
+
+
+Output:
+A3B2C
+A3B2C3DE
