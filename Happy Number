@@ -1,0 +1,53 @@
+package com.fst.demo;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class HappyNumber {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Test the program with the sample number
+		int n = 19;
+		
+		// Check if the number is happy
+		boolean isHappy = isHappyNumber(n);
+		
+		// Print the result
+		System.out.print(isHappy);
+	}
+	
+	// Function to check if a number is a happy number
+	public static boolean isHappyNumber(int n) {
+		// Use a set to detect cycles
+		Set<Integer> seenNumbers = new HashSet<>();
+		
+		while (n != 1 &&  !seenNumbers.contains(n)) {
+			seenNumbers.add(n);
+			n = getNextHappyNumber(n);
+		}
+		
+		// If the loop ends with n being 1, it's a happy number
+		return n == 1;
+	}
+	
+	// Function to calculate the next happy number for a given number
+	private static int getNextHappyNumber(int n) {
+		int sum = 0;
+		
+		while (n > 0) {
+			int digit = n % 10;
+			sum += digit * digit;
+			n /= 10;
+		}
+		
+		return sum;
+	}
+
+}
+
+
+
+Output: 
+true
