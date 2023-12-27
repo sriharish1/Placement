@@ -1,0 +1,53 @@
+package com.fst.demo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Permutations {
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
+        boolean[] used = new boolean[nums.length];
+
+        generatePermutations(nums, used, current, result);
+
+        return result;
+    }
+
+    private static void generatePermutations(int[] nums, boolean[] used, List<Integer> current, List<List<Integer>> result) {
+        if (current.size() == nums.length) {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (!used[i]) {
+                used[i] = true;
+                current.add(nums[i]);
+                generatePermutations(nums, used, current, result);
+                used[i] = false;
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] input = {1, 4, 3};
+        List<List<Integer>> output = permute(input);
+
+        System.out.println("Input: " + arrayToString(input));
+        System.out.println("Output: " + output);
+    }
+
+    private static String arrayToString(int[] arr) {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(arr[i]);
+            if (i < arr.length - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+}
