@@ -1,0 +1,69 @@
+package com.fst.demo;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ClubbedWords {
+    public static List<String> findClubbedWords(String[] words) {
+        List<String> result = new ArrayList<>();
+        Set<String> wordSet = new HashSet<>();
+        for (String word : words) {
+            wordSet.add(word);
+        }
+
+        for (String word : words) {
+            wordSet.remove(word);
+            if (canBeFormed(word, wordSet)) {
+                result.add(word);
+            }
+            wordSet.add(word);
+        }
+
+        return result;
+    }
+
+    private static boolean canBeFormed(String word, Set<String> wordSet) {
+        if (word.isEmpty()) {
+            return true;
+        }
+
+        for (int i = 1; i <= word.length(); i++) {
+            String prefix = word.substring(0, i);
+            String suffix = word.substring(i);
+
+            if (wordSet.contains(prefix) && canBeFormed(suffix, wordSet)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        String[] input = {"mat", "mate", "matbellmates", "bell", "bellmatesbell", "butterribbon", "butter", "ribbon"};
+        List<String> output = findClubbedWords(input);
+
+        System.out.println("Input: " + arrayToString(input));
+        System.out.println("Output: " + output);
+    }
+
+    private static String arrayToString(String[] arr) {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < arr.length; i++) {
+            sb.append(arr[i]);
+            if (i < arr.length - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+}
+
+
+
+Output:
+Input: ["mat","mate","matbellmates","bell","bellmatesbell","butterribbon","butter","ribbon"] 
+Output: ["matbellmates","bellmatesbell","butterribbon"]  
