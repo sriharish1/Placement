@@ -1,0 +1,63 @@
+package com.fst.demo;
+
+public class PalPrime {
+    private int number;
+    private String message;
+
+    public PalPrime(int number) {
+        this.number = number;
+        this.message = generateMessage();
+        System.out.println(this.message);
+    }
+
+    private String generateMessage() {
+        if (isPalPrime()) {
+            return "Number " + number + " is PalPrime";
+        } else if (isPalindrome()) {
+            return "Number " + number + " is Palindrome";
+        } else if (isPrime()) {
+            return "Number " + number + " is Prime";
+        } else {
+            return "Number " + number + " is neither Palindrome nor Prime";
+        }
+    }
+
+    private boolean isPalindrome() {
+        int originalNumber = number;
+        int reversedNumber = 0;
+
+        while (originalNumber != 0) {
+            int digit = originalNumber % 10;
+            reversedNumber = reversedNumber * 10 + digit;
+            originalNumber /= 10;
+        }
+
+        return number == reversedNumber;
+    }
+
+    private boolean isPrime() {
+        if (number <= 1) {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean isPalPrime() {
+        return isPalindrome() && isPrime();
+    }
+
+    public static void main(String[] args) {
+        int[] numbers = {1, 34543, 565, 727, 10099};
+
+        for (int number : numbers) {
+            new PalPrime(number);
+        }
+    }
+}
