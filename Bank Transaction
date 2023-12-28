@@ -1,0 +1,60 @@
+package com.fst.demo;
+
+class BankAccount {
+	private int accountId;
+	private String accountName;
+	private double balance;
+	
+	public BankAccount(int accountId, String accountName, double initialBalance) {
+		this.accountId = accountId;
+		this.accountName = accountName;
+		this.balance = initialBalance;
+	}
+	
+	public void transferTo(BankAccount destination, double amount) {
+		if (amount > 0 && amount <= balance) {
+			balance -= amount;
+			destination.balance += amount;
+			printReceipt();
+		} else {
+			System.out.println("Invalid transaction. Insufficient funds.");
+		}
+	}
+	
+	public void printReceipt() {
+		System.out.println("Account id:" + accountId);
+		System.out.println("Name:" + accountName);
+		System.out.println("Account Balance: Rs." + balance);
+		System.out.println();
+	}
+}
+
+public class BankTransaction {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//Create Account A with an initial balance of 5000
+		BankAccount accountA = new BankAccount(12344, "Account A", 5000);
+		
+		//Create Account B with an initial balance of 2500
+		BankAccount accountB = new BankAccount(56789, "Account B", 2500);
+		
+		//Transfer 1500 from Account A to B
+		accountA.transferTo(accountB, 1500);
+		
+		//Transfer 3000 from Account B to A
+		accountB.transferTo(accountA, 3000);
+	}
+}
+
+
+
+Output:
+Account id:12344
+Name:Account A
+Account Balance: Rs.3500.0
+
+Account id:56789
+Name:Account B
+Account Balance: Rs.1000.0
+
