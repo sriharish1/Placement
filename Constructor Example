@@ -1,0 +1,45 @@
+package com.fst.demo;
+
+public class ConstructorExample {
+    
+    // No arguments constructor
+    public ConstructorExample() {
+        System.out.println("No arguments constructor");
+    }
+    
+    // Default constructor
+    public ConstructorExample(String message) {
+        System.out.println("Default constructor with message: " + message);
+    }
+    
+    // Parameterized constructor (with different types of parameters)
+    public ConstructorExample(int number) {
+        System.out.println("Parameterized constructor with integer parameter: " + number);
+    }
+
+    public ConstructorExample(String str1, String str2) {
+        System.out.println("Parameterized constructor with two string parameters: " + str1 + ", " + str2);
+    }
+
+    public ConstructorExample(double value) {
+        System.out.println("Parameterized constructor with double parameter: " + value);
+    }
+
+    public static void main(String[] args) {
+        // Creating objects using different constructors
+        ConstructorExample obj1 = new ConstructorExample();
+        ConstructorExample obj2 = new ConstructorExample("Hello, Constructor!");
+        ConstructorExample obj3 = new ConstructorExample(42);
+        ConstructorExample obj4 = new ConstructorExample("Java", "Constructor");
+        ConstructorExample obj5 = new ConstructorExample(3.14);
+    }
+}
+
+
+
+Output:
+No arguments constructor
+Default constructor with message: Hello, Constructor!
+Parameterized constructor with integer parameter: 42
+Parameterized constructor with two string parameters: Java, Constructor
+Parameterized constructor with double parameter: 3.14
