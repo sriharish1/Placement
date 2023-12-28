@@ -1,0 +1,39 @@
+package com.fst.demo;
+
+public class RemoveDuplicates {
+    
+    public static int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int uniqueCount = 1; // At least one unique element is present in the sorted array
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i - 1]) {
+                nums[uniqueCount] = nums[i];
+                uniqueCount++;
+            }
+        }
+
+        return uniqueCount;
+    }
+
+    public static void main(String[] args) {
+        int[] inputArray = {22, 22, 77, 77, 88, 89, 89};
+
+        System.out.println("Input Array: " + java.util.Arrays.toString(inputArray));
+
+        int uniqueCount = removeDuplicates(inputArray);
+
+        System.out.println("After removing duplicates: " + java.util.Arrays.toString(inputArray));
+        System.out.println("Number of unique elements: " + uniqueCount);
+    }
+}
+
+
+
+Output:
+Input Array: [22, 22, 77, 77, 88, 89, 89]
+After removing duplicates: [22, 77, 88, 89, 88, 89, 89]
+Number of unique elements: 4
