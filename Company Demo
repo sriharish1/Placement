@@ -1,0 +1,107 @@
+package com.fst.demo;
+
+class Employee {
+    private String name;
+    private int employeeId;
+    private static final double BASIC_SALARY = 50000;
+
+    // Constructor
+    public Employee(String name, int employeeId) {
+        this.name = name;
+        this.employeeId = employeeId;
+    }
+
+    // Method to calculate basic salary
+    public double calculateSalary() {
+        return BASIC_SALARY;
+    }
+
+    // Getter methods
+    public String getName() {
+        return name;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+}
+
+class Manager extends Employee {
+    private double bonusPercentage;
+
+    // Constructor
+    public Manager(String name, int employeeId, double bonusPercentage) {
+        super(name, employeeId);
+        this.bonusPercentage = bonusPercentage;
+    }
+
+    // Override calculateSalary method
+    @Override
+    public double calculateSalary() {
+        // Include bonus for managers
+        return super.calculateSalary() + (super.calculateSalary() * bonusPercentage / 100);
+    }
+
+    // Getter method
+    public double getBonusPercentage() {
+        return bonusPercentage;
+    }
+}
+
+class Developer extends Employee {
+    private String programmingLanguage;
+
+    // Constructor
+    public Developer(String name, int employeeId, String programmingLanguage) {
+        super(name, employeeId);
+        this.programmingLanguage = programmingLanguage;
+    }
+
+    // Override calculateSalary method
+    @Override
+    public double calculateSalary() {
+        // Include extra allowance for developers
+        return super.calculateSalary() + 10000;
+    }
+
+    // Getter method
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
+    }
+}
+
+public class CompanyDemo {
+    public static void main(String[] args) {
+        // Create instances of Manager and Developer
+        Manager manager = new Manager("John Manager", 101, 15);
+        Developer developer = new Developer("Alice Developer", 201, "Java");
+
+        // Call calculateSalary method and print details
+        System.out.println("Manager Details:");
+        System.out.println("Name: " + manager.getName());
+        System.out.println("Employee ID: " + manager.getEmployeeId());
+        System.out.println("Bonus Percentage: " + manager.getBonusPercentage() + "%");
+        System.out.println("Total Salary: $" + manager.calculateSalary());
+
+        System.out.println("\nDeveloper Details:");
+        System.out.println("Name: " + developer.getName());
+        System.out.println("Employee ID: " + developer.getEmployeeId());
+        System.out.println("Programming Language: " + developer.getProgrammingLanguage());
+        System.out.println("Total Salary: $" + developer.calculateSalary());
+    }
+}
+
+
+
+Output:
+Manager Details:
+Name: John Manager
+Employee ID: 101
+Bonus Percentage: 15.0%
+Total Salary: $57500.0
+
+Developer Details:
+Name: Alice Developer
+Employee ID: 201
+Programming Language: Java
+Total Salary: $60000.0
