@@ -1,0 +1,92 @@
+package com.fst.demo;
+
+class Vehicle {
+    private double speed;
+
+    // Constructor
+    public Vehicle(double speed) {
+        this.speed = speed;
+    }
+
+    // Method to calculate speed (to be overridden by subclasses)
+    public double calculateSpeed() {
+        return speed;
+    }
+
+    // Getter method
+    public double getSpeed() {
+        return speed;
+    }
+}
+
+class Car extends Vehicle {
+    private int numberOfPassengers;
+
+    // Constructor
+    public Car(double speed, int numberOfPassengers) {
+        super(speed);
+        this.numberOfPassengers = numberOfPassengers;
+    }
+
+    // Override calculateSpeed method
+    @Override
+    public double calculateSpeed() {
+        // Speed is the product of the vehicle's speed and the number of passengers
+        return super.getSpeed() * numberOfPassengers;
+    }
+
+    // Getter method
+    public int getNumberOfPassengers() {
+        return numberOfPassengers;
+    }
+}
+
+class Motorcycle extends Vehicle {
+    private int numberOfWheels;
+
+    // Constructor
+    public Motorcycle(double speed, int numberOfWheels) {
+        super(speed);
+        this.numberOfWheels = numberOfWheels;
+    }
+
+    // Override calculateSpeed method
+    @Override
+    public double calculateSpeed() {
+        // Speed is the product of the vehicle's speed and the number of wheels
+        return super.getSpeed() * numberOfWheels;
+    }
+
+    // Getter method
+    public int getNumberOfWheels() {
+        return numberOfWheels;
+    }
+}
+
+public class VehicleDemo {
+    public static void main(String[] args) {
+        // Create instances of Car and Motorcycle
+        Car car = new Car(100, 4);
+        Motorcycle motorcycle = new Motorcycle(120, 2);
+
+        // Call calculateSpeed method and print details
+        System.out.println("Car Details:");
+        System.out.println("Speed: " + car.getSpeed() + " km/h");
+        System.out.println("Number of Passengers: " + car.getNumberOfPassengers());
+        System.out.println("Effective Speed: " + car.calculateSpeed() + " km/h");
+
+        System.out.println("\nMotorcycle Details:");
+        System.out.println("Speed: " + motorcycle.getSpeed() + " km/h");
+        System.out.println("Number of Wheels: " + motorcycle.getNumberOfWheels());
+        System.out.println("Effective Speed: " + motorcycle.calculateSpeed() + " km/h");
+
+        // Determine the vehicle with the highest effective speed
+        if (car.calculateSpeed() > motorcycle.calculateSpeed()) {
+            System.out.println("\nThe car has the highest effective speed.");
+        } else if (car.calculateSpeed() < motorcycle.calculateSpeed()) {
+            System.out.println("\nThe motorcycle has the highest effective speed.");
+        } else {
+            System.out.println("\nThe car and motorcycle have the same effective speed.");
+        }
+    }
+}
