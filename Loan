@@ -1,0 +1,121 @@
+package com.fst.demo;
+
+//Interface for common account operations
+interface Account {
+ void deposit(double amount);
+
+ void withdraw(double amount);
+
+ double checkBalance();
+}
+
+//Base class representing a generic account
+class GenericAccount implements Account {
+ private double balance;
+
+ public GenericAccount(double balance) {
+     this.balance = balance;
+ }
+
+ @Override
+ public void deposit(double amount) {
+     balance += amount;
+     System.out.println("Deposited: " + amount);
+ }
+
+ @Override
+ public void withdraw(double amount) {
+     if (amount <= balance) {
+         balance -= amount;
+         System.out.println("Withdrawn: " + amount);
+     } else {
+         System.out.println("Insufficient funds");
+     }
+ }
+
+ @Override
+ public double checkBalance() {
+     System.out.println("Balance: " + balance);
+     return balance;
+ }
+}
+
+//SavingsAccount class inheriting from GenericAccount
+class SavingsAccount extends GenericAccount {
+ private double interestRate;
+
+ public SavingsAccount(double balance, double interestRate) {
+     super(balance);
+     this.interestRate = interestRate;
+ }
+
+ public void applyInterest() {
+     double interest = checkBalance() * interestRate / 100;
+     deposit(interest);
+     System.out.println("Interest applied: " + interest);
+ }
+}
+
+//CheckingAccount class inheriting from GenericAccount
+class CheckingAccount extends GenericAccount {
+ private double overdraftLimit;
+
+ public CheckingAccount(double balance, double overdraftLimit) {
+     super(balance);
+     this.overdraftLimit = overdraftLimit;
+ }
+
+ @Override
+ public void withdraw(double amount) {
+     double availableFunds = checkBalance() + overdraftLimit;
+     if (amount <= availableFunds) {
+         super.withdraw(amount);
+     } else {
+         System.out.println("Exceeded overdraft limit");
+     }
+ }
+}
+
+//LoanAccount class inheriting from GenericAccount
+class LoanAccount extends GenericAccount {
+ private double interestRate;
+
+ public LoanAccount(double balance, double interestRate) {
+     super(balance);
+     this.interestRate = interestRate;
+ }
+
+ public void applyInterest() {
+     double interest = checkBalance() * interestRate / 100;
+     deposit(interest);
+     System.out.println("Loan interest applied: " + interest);
+ }
+}
+
+//Main class for testing the account hierarchy
+public class Loan {
+ public static void main(String[] args) {
+     // Test SavingsAccount
+     SavingsAccount savingsAccount = new SavingsAccount(1000, 2.5);
+     savingsAccount.deposit(500);
+     savingsAccount.applyInterest();
+     savingsAccount.checkBalance();
+
+     System.out.println();
+
+     // Test CheckingAccount
+     CheckingAccount checkingAccount = new CheckingAccount(2000, 1000);
+     checkingAccount.deposit(300);
+     checkingAccount.withdraw(2500); // Exceeds overdraft limit
+     checkingAccount.withdraw(1500); // Within overdraft limit
+     checkingAccount.checkBalance();
+
+     System.out.println();
+
+     // Test LoanAccount
+     LoanAccount loanAccount = new LoanAccount(5000, 5.0);
+     loanAccount.withdraw(2000);
+     loanAccount.applyInterest();
+     loanAccount.checkBalance();
+ }
+}
