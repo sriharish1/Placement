@@ -1,0 +1,26 @@
+package com.fst.demo;
+
+public class Calculator {
+    // Method to multiply two integers
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    // Method overloading to multiply three doubles
+    public double multiply(double x, double y, double z) {
+        return x * y * z;
+    }
+
+    public static void main(String[] args) {
+        // Create an instance of the Calculator class
+        Calculator calculator = new Calculator();
+
+        // Call the multiply method with two integers
+        int result1 = calculator.multiply(5, 3);
+        System.out.println("Product of two integers: " + result1);
+
+        // Call the multiply method with three doubles
+        double result2 = calculator.multiply(2.5, 3.0, 4.2);
+        System.out.println("Product of three doubles: " + result2);
+    }
+}
