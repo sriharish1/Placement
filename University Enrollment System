@@ -1,0 +1,122 @@
+package com.fst.demo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+class Student extends Person {
+    private int studentId;
+
+    public Student(String name, int age, int studentId) {
+        super(name, age);
+        this.studentId = studentId;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+}
+
+class Professor extends Person {
+    private int employeeId;
+
+    public Professor(String name, int age, int employeeId) {
+        super(name, age);
+        this.employeeId = employeeId;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+}
+
+class Course {
+    private String courseName;
+    private List<Course> prerequisites;
+    private List<Student> enrolledStudents;
+
+    public Course(String courseName) {
+        this.courseName = courseName;
+        this.prerequisites = new ArrayList<>();
+        this.enrolledStudents = new ArrayList<>();
+    }
+
+    public void addPrerequisite(Course prerequisite) {
+        prerequisites.add(prerequisite);
+    }
+
+    public void enrollStudent(Student student) {
+        if (hasCompletedPrerequisites(student)) {
+            enrolledStudents.add(student);
+            System.out.println("Enrolled student " + student.getName() + " in course " + courseName);
+        } else {
+            System.out.println("Student " + student.getName() + " cannot be enrolled in course " + courseName +
+                    " due to incomplete prerequisites.");
+        }
+    }
+
+    private boolean hasCompletedPrerequisites(Student student) {
+        for (Course prerequisite : prerequisites) {
+            if (!studentHasCompletedCourse(student, prerequisite)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean studentHasCompletedCourse(Student student, Course course) {
+        // For simplicity, assuming that students have a list of completed courses.
+        // In a real system, this information might come from a database or other sources.
+        // Here, we just check if the student's age is greater than 18 as a dummy condition.
+        return student.getAge() > 18;
+    }
+
+    public void displayEnrolledStudents() {
+        System.out.println("Enrolled students in course " + courseName + ":");
+        for (Student student : enrolledStudents) {
+            System.out.println("Student ID: " + student.getStudentId() + ", Name: " + student.getName());
+        }
+    }
+}
+
+public class UniversityEnrollmentSystem {
+    public static void main(String[] args) {
+        // Create students
+        Student student1 = new Student("John Doe", 20, 1001);
+        Student student2 = new Student("Jane Smith", 19, 1002);
+
+        // Create courses
+        Course mathCourse = new Course("Mathematics");
+        Course physicsCourse = new Course("Physics");
+
+        // Add prerequisites for Physics course
+        physicsCourse.addPrerequisite(mathCourse);
+
+        // Enroll students in courses
+        mathCourse.enrollStudent(student1);
+        mathCourse.enrollStudent(student2);
+
+        physicsCourse.enrollStudent(student1); // This should fail due to incomplete prerequisites
+
+        // Display enrolled students in courses
+        mathCourse.displayEnrolledStudents();
+        physicsCourse.displayEnrolledStudents();
+    }
+}
