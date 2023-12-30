@@ -1,0 +1,53 @@
+package com.fst.demo;
+
+class PrintNumbers implements Runnable {
+	private static final Object lock = new Object();
+	private static int currentNumber = 1;
+	private static int N;
+	
+	public PrintNumbers(int N) {
+		this.N = N;
+	}
+	
+	@Override
+	public void run() {
+		synchronized (lock) {
+			while (currentNumber <= N) {
+				// Print the current number and increment it
+				System.out.println(currentNumber + " ");
+				
+				// Move to the next number
+				currentNumber++;
+				
+				// Notify the other thread waiting on the lock
+				lock.notify();
+				
+				try {
+					// Wait for the other thread to finish printing
+					if (currentNumber <= N) {
+						lock.wait();
+					}
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+}
+
+public class PrintNumbersExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int N = 10; // You can change N to any positive integer
+		
+		// Create two threads
+		Thread t1 = new Thread(new PrintNumbers(N));
+		Thread t2 = new Thread(new PrintNumbers(N));
+		
+		// Start the threads
+		t1.start();
+		t2.start();
+	}
+}
