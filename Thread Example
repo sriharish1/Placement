@@ -1,0 +1,33 @@
+package com.fst.demo;
+
+class MyRunnable implements Runnable {
+	public void run() {
+		// Fetching the name of the current thread using getName() method
+		String threadName = Thread.currentThread().getName();
+		System.out.println("Thread name: " + threadName);
+	}
+}
+
+public class ThreadExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		// Creating an instance of the MyRunnable class
+		MyRunnable myRunnable = new MyRunnable();
+		
+		// Creating two threads and associating them with the MyRunnable instance
+		Thread t1 = new Thread (myRunnable, "Thread-1");
+		Thread t2 = new Thread (myRunnable, "Thread-2");
+		
+		// Starting the threads
+		t1.start();
+		t2.start();
+	}
+}
+
+
+
+Output:
+Thread name: Thread-2
+Thread name: Thread-1
