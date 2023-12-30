@@ -1,0 +1,46 @@
+package com.fst.demo;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class PositiveNumberChecker {
+
+    public static void main(String[] args) {
+        String fileName = "test.txt";
+
+        try {
+            checkForPositiveNumbers(fileName);
+        } catch (PositiveNumberException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error reading the file: " + e.getMessage());
+        }
+    }
+
+    static void checkForPositiveNumbers(String fileName) throws IOException, PositiveNumberException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line = reader.readLine();
+            String[] numbers = line.split(" ");
+
+            for (String number : numbers) {
+                int num = Integer.parseInt(number);
+                if (num > 0) {
+                    throw new PositiveNumberException("Positive number found: " + num);
+                }
+            }
+        }
+    }
+
+    static class PositiveNumberException extends Exception {
+        public PositiveNumberException(String message) {
+            super(message);
+        }
+    }
+}
+
+
+
+Output:
+Content of test.txt: -1 -2 -3 4 
+Error: Positive number found: 4
