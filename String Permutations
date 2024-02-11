@@ -1,0 +1,42 @@
+package com.fst.demo;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class StringPermutations {
+    public static Set<String> generatePermutations(String input) {
+        Set<String> permutations = new HashSet<>();
+        generatePermutationsHelper(input.toCharArray(), 0, permutations);
+        return permutations;
+    }
+
+    private static void generatePermutationsHelper(char[] chars, int index, Set<String> permutations) {
+        if (index == chars.length - 1) {
+            permutations.add(new String(chars));
+            return;
+        }
+
+        for (int i = index; i < chars.length; i++) {
+            swap(chars, index, i);
+            generatePermutationsHelper(chars, index + 1, permutations);
+            swap(chars, index, i); // Backtrack
+        }
+    }
+
+    private static void swap(char[] chars, int i, int j) {
+        char temp = chars[i];
+        chars[i] = chars[j];
+        chars[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        String input = "Good";
+        Set<String> permutations = generatePermutations(input);
+
+        System.out.println("Input: " + input);
+        System.out.println("Output:");
+        for (String permutation : permutations) {
+            System.out.println(permutation);
+        }
+    }
+}
