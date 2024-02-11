@@ -1,0 +1,36 @@
+package com.fst.demo;
+
+public class NextPalindrome {
+    public static void main(String[] args) {
+        int input1 = 123;
+        int input2 = 12345;
+
+        System.out.println("Input: " + input1);
+        System.out.println("Output: " + findNextPalindrome(input1));
+
+        System.out.println("Input: " + input2);
+        System.out.println("Output: " + findNextPalindrome(input2));
+    }
+
+    public static int findNextPalindrome(int num) {
+        while (true) {
+            num++;
+            if (isPalindrome(num)) {
+                return num;
+            }
+        }
+    }
+
+    public static boolean isPalindrome(int num) {
+        int originalNum = num;
+        int reversedNum = 0;
+
+        while (num > 0) {
+            int digit = num % 10;
+            reversedNum = reversedNum * 10 + digit;
+            num /= 10;
+        }
+
+        return originalNum == reversedNum;
+    }
+}
