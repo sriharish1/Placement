@@ -1,0 +1,30 @@
+package com.fst.demo;
+
+public class StringComparator {
+    public static void compare(String str1, String str2) {
+        if (str1.length() != str2.length()) {
+            System.out.println("Input strings must have equal length");
+            return;
+        }
+
+        System.out.println("Output:");
+
+        for (int i = 0; i < str1.length(); i++) {
+            if (str1.charAt(i) != str2.charAt(i)) {
+                System.out.println(str1.charAt(i) + ", " + str2.charAt(i));
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String str1 = "antonyandcleopatra";
+        String str2 = "antaniandcleopadra";
+        compare(str1, str2);
+
+        System.out.println(); // Separate the outputs
+
+        String str3 = "abcddefgikom";
+        String str4 = "abdcdeffgklm";
+        compare(str3, str4);
+    }
+}
