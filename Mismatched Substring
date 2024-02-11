@@ -1,0 +1,36 @@
+package com.fst.demo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MismatchedSubstrings {
+    public static List<String> findMismatchedSubstrings(String str1, String str2) {
+        List<String> mismatchedSubstrings = new ArrayList<>();
+        
+        int minLength = Math.min(str1.length(), str2.length());
+        for (int i = 0; i < minLength; i++) {
+            if (str1.charAt(i) != str2.charAt(i)) {
+                int j = i;
+                while (j < minLength && str1.charAt(j) != str2.charAt(j)) {
+                    j++;
+                }
+                mismatchedSubstrings.add(str1.substring(i, j));
+                i = j - 1;
+            }
+        }
+        
+        return mismatchedSubstrings;
+    }
+
+    public static void main(String[] args) {
+        String str1 = "AABBCCDD";
+        String str2 = "ABCDCCAD";
+        
+        List<String> mismatchedSubstrings = findMismatchedSubstrings(str1, str2);
+        System.out.println("Input: " + str1 + ", " + str2);
+        System.out.println("Output:");
+        for (String substring : mismatchedSubstrings) {
+            System.out.println(substring);
+        }
+    }
+}
