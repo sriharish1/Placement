@@ -1,0 +1,47 @@
+package com.fst.demo;
+
+public class TextJustifier {
+    public static String justifyText(String text, int padding) {
+        // Calculate the total number of spaces to be distributed
+        int totalSpaces = padding - text.length();
+
+        // Count the number of spaces needed between each pair of words
+        int spaceBetweenWords = totalSpaces / (text.split("_").length - 1);
+
+        // Calculate the remainder spaces that couldn't be evenly distributed
+        int remainderSpaces = totalSpaces % (text.split("_").length - 1);
+
+        // Split the input text into words
+        String[] words = text.split("_");
+
+        // Initialize the justified text
+        StringBuilder justifiedText = new StringBuilder(words[0]);
+
+        // Append spaces between words
+        for (int i = 1; i < words.length; i++) {
+            // Append evenly distributed spaces
+            for (int j = 0; j < spaceBetweenWords; j++) {
+                justifiedText.append("_");
+            }
+
+            // Append additional space if there are remainder spaces left
+            if (i <= remainderSpaces) {
+                justifiedText.append("_");
+            }
+
+            // Append the current word
+            justifiedText.append(words[i]);
+        }
+
+        return justifiedText.toString();
+    }
+
+    public static void main(String[] args) {
+        String inputText = "Zoho_Corp_Madurai";
+        int padding = 25;
+
+        String justifiedText = justifyText(inputText, padding);
+
+        System.out.println("Output: " + justifiedText);
+    }
+}
