@@ -1,0 +1,41 @@
+package com.fst.demo;
+
+public class StringExpander {
+    public static String expandInput(String input) {
+        StringBuilder output = new StringBuilder();
+        char currentChar = '\0';
+        int currentCount = 0;
+
+        for (char ch : input.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                if (currentChar != '\0') {
+                    for (int i = 0; i < currentCount; i++) {
+                        output.append(currentChar);
+                    }
+                }
+                currentChar = ch;
+                currentCount = 0;
+            } else if (Character.isDigit(ch)) {
+                currentCount = currentCount * 10 + Character.getNumericValue(ch);
+            }
+        }
+
+        if (currentChar != '\0') {
+            for (int i = 0; i < currentCount; i++) {
+                output.append(currentChar);
+            }
+        }
+
+        return output.toString();
+    }
+
+    public static void main(String[] args) {
+        String input1 = "a1b10";
+        String output1 = expandInput(input1);
+        System.out.println("Input: " + input1 + "\nOutput: " + output1);
+
+        String input2 = "b3c6d15";
+        String output2 = expandInput(input2);
+        System.out.println("\nInput: " + input2 + "\nOutput: " + output2);
+    }
+}
