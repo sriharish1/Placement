@@ -1,0 +1,40 @@
+package com.fst.demo;
+
+public class NumberToWordsConverter {
+    private static final String[] units = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+    private static final String[] teens = {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+    private static final String[] tens = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+
+    public static String convertToWords(int num) {
+        if (num == 0) {
+            return "Zero";
+        }
+
+        return convert(num);
+    }
+
+    private static String convert(int num) {
+        if (num < 10) {
+            return units[num];
+        } else if (num < 20) {
+            return teens[num - 10];
+        } else if (num < 100) {
+            return tens[num / 10] + ((num % 10 != 0) ? " " + convert(num % 10) : "");
+        } else if (num < 1000) {
+            return units[num / 100] + " Hundred" + ((num % 100 != 0) ? " and " + convert(num % 100) : "");
+        } else if (num < 10000) {
+            return convert(num / 1000) + " Thousand" + ((num % 1000 != 0) ? " " + convert(num % 1000) : "");
+        } else {
+            return convert(num / 1000) + " Thousand" + ((num % 1000 != 0) ? ", " + convert(num % 1000) : "");
+        }
+    }
+
+    public static void main(String[] args) {
+        int input = 1213;
+        String output = convertToWords(input);
+        System.out.println("Input: " + input + "\nOutput: " + output);
+        
+        int input2 = 9876;
+        System.out.println("\nInput: " + input2 + "\nOutput: " + convertToWords(input2));
+    }
+}
